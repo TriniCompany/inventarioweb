@@ -3,23 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nos Vemos en Mayo!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="itfam.png" type="image/x-icon">
+    <title>Cuenta Regresiva - Lanzamiento</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #0d1117, #161b22);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .countdown {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transform: scale(0.8);
+            animation: scaleIn 1s ease-in-out forwards;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.8); }
+            to { transform: scale(1); }
+        }
+        
+        .time {
+            font-size: 2rem;
+            margin: 10px 0;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .time.changed {
+            transform: scale(1.2);
+        }
+    </style>
 </head>
 <body>
-<video autoplay muted loop>
-    <source src="video.mp4" type="video/mp4">
-    Tu navegador no soporta la etiqueta de video.
-</video>
+    <div class="countdown">
+        <h1>Lanzamiento en:</h1>
+        <div class="time" id="timer"></div>
+    </div>
+    <script>
+        function updateCountdown() {
+            const launchDate = new Date('May 1, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const difference = launchDate - now;
 
-<div class="container">
-    <h1>PROXIMAMENTE</h1>
-    <p>Estamos trabajando en algo increíble. ¡Vuelve en Mayo del 2025!</p>
-    <a href="https://www.instagram.com/trinicompany_/" target="_blank"><p>@trinicompany_</p></a>
-    <div class="countdown" id="countdown"></div>
-</div>
-<script src="script.js"></script>
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            const timerElement = document.getElementById('timer');
+            const newTime = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            
+            if (timerElement.innerHTML !== newTime) {
+                timerElement.classList.add('changed');
+                setTimeout(() => timerElement.classList.remove('changed'), 300);
+            }
+            
+            timerElement.innerHTML = newTime;
+
+            if (difference < 0) {
+                timerElement.innerHTML = "¡Ya está disponible!";
+            }
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 </body>
 </html>

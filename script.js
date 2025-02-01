@@ -1,24 +1,36 @@
+function updateCountdown() {
+    const launchDate = new Date('May 1, 2025 00:00:00').getTime();
+    const now = new Date().getTime();
+    const difference = launchDate - now;
 
-const countdownDate = new Date("May 4, 2025 00:00:00").getTime();
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-const interval = setInterval(function() {
-const now = new Date().getTime();
-const distance = countdownDate - now;
+    const timerElement = document.getElementById('timer');
+    const newTime = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+    if (timerElement.innerHTML !== newTime) {
+        timerElement.classList.add('changed');
+        setTimeout(() => timerElement.classList.remove('changed'), 300);
+    }
     
-document.getElementById("countdown").innerHTML = 
-    days + "d " + 
-    hours + "h " + 
-    minutes + "m " + 
-    "<span>" + seconds + "s</span>";
+    timerElement.innerHTML = newTime;
 
-if (distance < 0) {
-    clearInterval(interval);
-    document.getElementById("countdown").innerHTML = "¡Espera nuestro lanzamiento!";
+    if (difference < 0) {
+        timerElement.innerHTML = "¡Ya está disponible!";
+    }
 }
-}, 1000);
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+window.onload = function() {
+    setTimeout(() => {
+        document.getElementById('loading-screen').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.display = 'none';
+        }, 1000);
+    }, 4000);
+};

@@ -1,30 +1,36 @@
-// Establecer la fecha de finalización (1 de mayo de 2025)
-const countdownDate = new Date("May 1, 2025 00:00:00").getTime();
-
-// Actualizar el contador cada segundo
-const interval = setInterval(function() {
-
-    // Obtener la fecha y hora actual
+function updateCountdown() {
+    const launchDate = new Date('February 11, 2025 00:00:00').getTime();
     const now = new Date().getTime();
+    const difference = launchDate - now;
 
-    // Calcular la diferencia entre la fecha de finalización y la fecha actual
-    const distance = countdownDate - now;
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-    // Calcular los días, horas, minutos y segundos restantes
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Mostrar los resultados en los elementos HTML
-    document.getElementById("days").getElementsByClassName("time-number")[0].innerText = days;
-    document.getElementById("hours").getElementsByClassName("time-number")[0].innerText = hours;
-    document.getElementById("minutes").getElementsByClassName("time-number")[0].innerText = minutes;
-    document.getElementById("seconds").getElementsByClassName("time-number")[0].innerText = seconds;
-
-    // Si el contador llega a cero, mostrar un mensaje
-    if (distance < 0) {
-        clearInterval(interval);
-        document.querySelector('.counter-container').innerHTML = "<h2>¡El evento ha llegado!</h2>";
+    const timerElement = document.getElementById('timer');
+    const newTime = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    
+    if (timerElement.innerHTML !== newTime) {
+        timerElement.classList.add('changed');
+        setTimeout(() => timerElement.classList.remove('changed'), 300);
     }
-}, 1000);
+    
+    timerElement.innerHTML = newTime;
+
+    if (difference < 0) {
+        timerElement.innerHTML = "¡Ya está disponible!";
+    }
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+window.onload = function() {
+    setTimeout(() => {
+        document.getElementById('loading-screen').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('loading-screen').style.display = 'none';
+        }, 1000);
+    }, 4000);
+};

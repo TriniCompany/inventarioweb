@@ -22,7 +22,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     $sql = "INSERT INTO productos (nombre, categoria, cantidad, precio, Itbis, ganancia, StockMaximo, StockMinimo, Ubicacion) 
-    VALUES ('$nombre', '$categoria', '$cantidad', '$precio', '$Itbis', $precio * 1.35, '$Maximo', '$Minimo', '$Ubicacion')";
+    VALUES ('$nombre', '$categoria', '$cantidad', '$precio', '$Itbis', $precio / (1-0.35), '$Maximo', '$Minimo', '$Ubicacion')";
+
+    /* FORMULA CORRECTA PARA LAS GANANCIAS */
+
+    // 5000/(1-0.35)
+
+
+    //CREACION DE UN REGISTRO DE INGRESOS
+    //INGRESAR GANANCIA EN REGISTRO DE INGRESOS
 
     if ($conn->query($sql) === TRUE) {
         header("Location: ../inventory.php"); // Redirige al inventario

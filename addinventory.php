@@ -30,6 +30,16 @@
 
             <label for="itbis">Itbis</label>
             <input type="number" id="itbis" name="itbis" step="0.01">
+
+            <label for="Minimo">Stock Minimo</label>
+            <input type="number" id="Minimo" name="Minimo" step="0.01" required>
+
+            <label for="Maximo">Stock Maximo</label>
+            <input type="number" id="Maximo" name="Maximo" step="0.01" required>
+
+            <label for="Ubicacion">Ubicacion</label>
+            <input type="text" id="Ubicacion" name="Ubicacion" required>
+
             <button type="submit" class="submit-btn">Añadir Producto</button>
         </form>
         <form action="inventory.php">

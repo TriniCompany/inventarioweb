@@ -34,10 +34,14 @@ $result = $conn->query($sql);
                 <tr>
                     <th>ID</th>
                     <th>Producto</th>
-                    <th>Categoría</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
+                    <th>Stock Inicial</th>
+                    <th>Precio Neto</th>
                     <th>Itbis</th>
+                    <th>Precio de Venta</th>
+                    <th>Stock Minimo</th>
+                    <th>Stock Maximo</th>
+                    <th>Ubicacion</th>
+                    <th>Categoría</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -46,10 +50,14 @@ $result = $conn->query($sql);
                     <tr>
                         <td><?= $row["id"] ?></td>
                         <td><?= $row["nombre"] ?></td>
-                        <td><?= $row["categoria"] ?></td>
                         <td><?= $row["cantidad"] ?></td>
                         <td><?= $row["precio"] ?></td>
                         <td><?= $row["Itbis"] ?></td>
+                        <td><?= $row["ganancia"] ?></td>
+                        <td><?= $row["StockMinimo"] ?></td>
+                        <td><?= $row["StockMaximo"] ?></td>
+                        <td><?= $row["Ubicacion"] ?></td>
+                        <td><?= $row["categoria"] ?></td>
                         <td>
                             <form action="editproducts.php" method="GET" style="display:inline;">
                                 <input type="hidden" name="id" value="<?= $row['id'] ?>">

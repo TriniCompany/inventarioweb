@@ -16,8 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $cantidad = $_POST["cantidad"];
     $precio = $_POST["precio"];
     $itbis = $_POST["itbis"];
+    $Minimo = $_POST["Minimo"];
+    $Maximo = $_POST["Maximo"];
+    $Ubicacion = $_POST["Ubicacion"];
 
-    $sql = "INSERT INTO productos (nombre, categoria, cantidad, precio, Itbis) VALUES ('$nombre', '$categoria', '$cantidad', '$precio', '$Itbis')";
+
+    $sql = "INSERT INTO productos (nombre, categoria, cantidad, precio, Itbis, ganancia, StockMaximo, StockMinimo, Ubicacion) 
+    VALUES ('$nombre', '$categoria', '$cantidad', '$precio', '$Itbis', $precio * 1.35, '$Maximo', '$Minimo', '$Ubicacion')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: ../inventory.php"); // Redirige al inventario
